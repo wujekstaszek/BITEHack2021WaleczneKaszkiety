@@ -3,5 +3,6 @@ from . import views
 from django.conf.urls import url
 app_name = 'chrobry'
 urlpatterns = [
-    re_path('', views.index),
+    re_path('tags', views.tags),
+    re_path('fields', views.fields),
 ]

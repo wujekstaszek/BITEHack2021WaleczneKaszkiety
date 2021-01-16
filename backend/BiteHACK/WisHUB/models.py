@@ -14,13 +14,11 @@ class User(DjangoNode):
     @property
     def serialize(self):
         return {
-            'node_properties': {
                 'user_id': self.user_id,
                 'name': self.name,
                 'email': self.email,
                 'posts': [x.post_id for x in self.posts.all()],
                 'comments': [x.comment_id for x in self.comments.all()],
-            },
         }
 
 
@@ -38,7 +36,6 @@ class Post(DjangoNode):
     @property
     def serialize(self):
         return {
-            'node_properties': {
                 'post_id': self.post_id,
                 'date': self.date,
                 'link': self.link,
@@ -48,7 +45,6 @@ class Post(DjangoNode):
                 'tags': [x.tag_id for x in self.tags.all()],
                 'user' : [x.user_id for x in self.user.all() ],
                 'comments': [x.comment_id for x in self.comments.all()],
-            },
         }
 
 
@@ -64,7 +60,6 @@ class Comment(DjangoNode):
     @property
     def serialize(self):
         return {
-            'node_properties': {
                 'comment_id': self.comment_id,
                 'date': self.date,
                 'text': self.text,
@@ -72,7 +67,6 @@ class Comment(DjangoNode):
                 'downvoted': self.downvoted,
                 'user' : [x.user_id for x in self.user.all() ],
                 'posts': [x.post_id for x in self.post.all()],
-            },
         }
 
 
@@ -85,12 +79,10 @@ class Tag(DjangoNode):
     @property
     def serialize(self):
         return {
-            'node_properties': {
                 'tag_id': self.tag_id,
                 'name': self.name,
                 'fields' : [x.field_id for x in self.fields.all() ],
                 'posts': [x.post_id for x in self.posts.all()],
-            },
         }
 
 
@@ -102,11 +94,9 @@ class Field(DjangoNode):
     @property
     def serialize(self):
         return {
-            'node_properties': {
                 'field_id': self.field_id,
                 'name': self.name,
                 'tags':[x.tag_id for x in self.tags.all()],
-            },
         }
 
 # Create your models here.
