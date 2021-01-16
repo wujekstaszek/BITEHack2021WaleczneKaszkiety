@@ -48,5 +48,11 @@ class Tag(DjangoNode):
     tag_id = UniqueIdProperty()
     name = StringProperty(required=True)
     posts = RelationshipFrom("Post", "TAGGED", cardinality=ZeroOrMore)
+    fields = RelationshipTo("Field", "FROM", cardinality=OneOrMore)
+
+class Field(DjangoNode):
+    field_id = UniqueIdProperty()
+    name = StringProperty(required=True)
+    tags = RelationshipFrom("Tag", "FROM", cardinality=ZeroOrMore)
 
 # Create your models here.
