@@ -8,12 +8,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "30px",
   },
   navOption: {
+    margin: "15px 0",
     cursor: "pointer",
+    textTransform: "uppercase",
+    color: "orange",
   },
 }));
 
 const CollapseSection = ({ title, domains }) => {
-  console.log(domains);
   const classes = useStyles();
   const options = domains[title.toUpperCase()].sections;
 
@@ -21,11 +23,11 @@ const CollapseSection = ({ title, domains }) => {
     <Grid
       container
       className={classes.wrapper}
-      justify="column"
+      direction="column"
       alignItems="flex-start"
     >
       {options.map((option, i) => (
-        <Typography className={classes.navOption} key={i}>
+        <Typography className={classes.navOption} variant="h5" key={i}>
           {option}
         </Typography>
       ))}

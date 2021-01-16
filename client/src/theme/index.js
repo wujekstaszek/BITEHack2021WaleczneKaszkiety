@@ -18,11 +18,11 @@ const theme = createMuiTheme({
     randomColor: Object.values(colors)[
       Math.floor(Math.random() * Object.values(colors).length)
     ],
-    navbar: "#fff3f3",
+    navbar: "#ECECEC",
   },
   navbarHeight: 100,
-  mainFont: "'Montserrat', sans-serif",
-  textFont: "'Oswald', sans-serif",
+  textFont: "'Montserrat', sans-serif",
+  mainFont: "'Oswald', sans-serif",
 });
 
 export default theme;

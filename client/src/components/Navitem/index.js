@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color: theme.palette.main,
     fontFamily: theme.mainFont,
+    position: "relative",
   },
 }));
 
