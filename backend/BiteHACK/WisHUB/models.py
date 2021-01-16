@@ -81,8 +81,6 @@ class Tag(DjangoNode):
     name = StringProperty(required=True)
     posts = RelationshipFrom("Post", "TAGGED", cardinality=ZeroOrMore)
     fields = RelationshipTo("Field", "FROM", cardinality=OneOrMore)
-    class Meta:
-        app_label = "WisHUB"
 
     @property
     def serialize(self):
