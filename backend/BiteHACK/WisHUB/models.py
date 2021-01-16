@@ -14,7 +14,7 @@ class User(DjangoNode):
 class Post(DjangoNode):
     post_id = IntegerProperty(required=True, unique_index=True)
     date = DateTimeProperty(default=datetime.datetime.now())
-    link = StringProperty(default=os)
+    link = StringProperty(required=True)
     text = StringProperty(required=False)
     upvoted = IntegerProperty(default=0)
     downvoted = IntegerProperty(default=0)
