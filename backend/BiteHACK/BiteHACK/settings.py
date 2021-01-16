@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_neomodel',
+    'WisHUB.apps'
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,15 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+import os
+import neomodel
+NEO4j_user = "app2"
+NEO4j_pass= "6YZnRMQCrA7DDhcQvsjywRXgatUmXS8n6YU76P2RR33wRPW2b4HfWR94xAsuccSSTwxyGsS5fxKmTLsMHDBbh6"
+NEO4j_adress = "192.168.1.37:7687"
+neomodel.config.MAX_POOL_SIZE=50
+NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL', f'bolt://{NEO4j_user}:{NEO4j_pass}@{NEO4j_adress}')
+NEOMODEL_MAX_POOL_SIZE = 50
+NEOMODEL_ENCRYPTED_CONNECTION = False
 
 
 # Password validation

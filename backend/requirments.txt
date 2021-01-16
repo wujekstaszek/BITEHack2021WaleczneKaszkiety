@@ -1,3 +1,6 @@
 django
 djangorestframework
 graphene-django
+psycopg2
+django-neomodel
+neomodel
