@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'WisHUB.apps.WishubConfig'
 ]
 
+GRAPHENE = {
+    'SCHEMA': 'schema.schema'
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
