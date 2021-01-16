@@ -11,6 +11,19 @@ class User(DjangoNode):
     posts = RelationshipTo("Post", "POSTED", cardinality=ZeroOrMore)
     comments = RelationshipTo("Comment", "COMMENTED", cardinality=ZeroOrMore)
 
+    @property
+    def serialize(self):
+    return {
+        'node_properties': {
+            'user_id': self.user_id,
+            'name': self.name,
+            'email': self.email,
+            'posts': [x.post_id for x in self.posts.all()],
+            'comments': [x.comment_id for x in self.comments.all()],
+        },
+    }
+
+
 class Post(DjangoNode):
     post_id = UniqueIdProperty()
     date = DateTimeProperty(default=datetime.datetime.now())
