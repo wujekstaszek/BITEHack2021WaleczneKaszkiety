@@ -38,12 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_neomodel',
+    'rest_framework',
     'WisHUB.apps.WishubConfig'
 ]
-
-GRAPHENE = {
-    'SCHEMA': 'schema.schema'
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
