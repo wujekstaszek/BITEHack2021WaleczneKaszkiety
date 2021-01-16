@@ -6,9 +6,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Switch>
-        <Route></Route>
-      </Switch>
+      <Switch></Switch>
     </div>
   );
 }
