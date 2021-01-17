@@ -6,7 +6,13 @@ export const setFeed = (data) => ({
   payload: data,
 });
 
+export const setLoading = (toggle) => ({
+  type: actionTypes.SET_LOADING,
+  payload: toggle,
+});
+
 export const fetchFeed = (tagId) => (dispatch) => {
+  dispatch(setLoading(true));
   return axios
     .get(`/posts/${tagId}/`, {
       headers: {
@@ -14,7 +20,13 @@ export const fetchFeed = (tagId) => (dispatch) => {
       },
     })
     .then((res) => {
-      dispatch(setFeed(res.data));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+        dispatch(setFeed(res.data));
+      }, 1000);
     })
-    .catch((err) => console.warn(err));
+    .catch((err) => {
+      dispatch(setLoading(false));
+      console.warn(err);
+    });
 };
