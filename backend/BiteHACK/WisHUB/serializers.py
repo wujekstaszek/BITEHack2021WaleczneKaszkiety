@@ -1,29 +1,27 @@
-from sys import dont_write_bytecode
-import graphene 
-
-from graphene_django.types import DjangoObjectType, ObjectType
+from rest_framework import serializers
 from .models import User, Post, Comment, Tag
 
-class UserType(DjangoObjectType):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = {"user_id", "name", "email", "posts", "comments"}
+        fields = ("user_id", "name", "email", "posts", "comments")
 
-class PostType(DjangoObjectType):
+class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = {"post_id", "date", "link", "text", "upvoted", "downvoted", "tags", "user", "comments"}
+        fields = ("url", "user", "link", "text", "upvoted", "downvoted", "tags", "user", "comments")
 
-class CommentType(DjangoObjectType):
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment 
-        fields = {"comment_id", "date", "text", "upvoted", "downvoted", "user", "post"}
+        fields = ("comment_id", "date", "text", "upvoted", "downvoted", "user", "post")
 
-class TagType(DjangoObjectType):
+class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tag
-        fields = {"tag_id", "name", "posts"}
+        fields = ("tag_id", "name", "posts")
 
+'''
 class Query(ObjectType):
     user = graphene.Field(UserType, id=graphene.Int())
     post = graphene.Field(PostType, id=graphene.Int())
@@ -111,6 +109,6 @@ class TagInput(graphene.InputObjectType):
     tag_id = graphene.ID()
     name = graphene.String()
     # posts = graphene.List()?
-
-schema = graphene.Schema(query=Query)
+'''
+# schema = graphene.Schema(query=Query)
 # schema = graphene.Schema(query=Query, mutation=Mutation)
