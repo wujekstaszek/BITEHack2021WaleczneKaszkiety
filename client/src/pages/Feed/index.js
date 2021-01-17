@@ -1,18 +1,33 @@
 import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
+import LinkBox from '../../components/LinkBox';
 
 const useStyles = makeStyles((theme) => ({
   main: {
     width: `${theme.feedWidth}px`,
     minHeight: '100vh',
-    background: theme.palette.main,
     margin: '0 auto',
   },
 }));
 
-const Feed = (props) => {
+const Feed = ({ posts }) => {
   const classes = useStyles();
-  return <Grid container className={classes.main}></Grid>;
+  return (
+    <Grid
+      container
+      justify="flex-start"
+      direction="column"
+      className={classes.main}
+    >
+      {posts &&
+        posts.map((post, i) => <LinkBox key={post.post_id} post={post} />)}
+    </Grid>
+  );
 };
 
-export default Feed;
+const mapStateToProps = (state) => ({
+  posts: state.feed.posts,
+});
+
+export default connect(mapStateToProps)(Feed);
