@@ -6,16 +6,50 @@ import Topbar from './components/Topbar';
 import Feed from './pages/Feed';
 
 function App() {
+    let items = [
+    {
+        title: "Wektory i iteratory",
+        description: "Bardzo fajna strona",
+        link : "https://coursera.org",
+        upvotes : 322,
+        downvotes : -22,
+        nComments : 11
+    },
+    {
+        title : "Template metaprogramming",
+        description : "Bardzo fajna strona",
+        link : "https://coursera.com",
+        upvotes : 350,
+        downvotes : -20,
+        nComments : 10
+    },
+    {
+        title : "C++",
+        description : "Bardzo fajna strona",
+        link : "https://udemy.com",
+        upvotes : 122,
+        downvotes : -31,
+        nComments : 13
+    },
+    {
+        title : "C--",
+        description : "Bardzo fajna strona",
+        link : "https://youtube.com",
+        upvotes : 212,
+        downvotes : -10,
+        nComments : 14
+    },
+  ]
+
   return (
     <div className="App">
       <Topbar />
       <Navbar />
       <Switch></Switch>
-      <LinkBox upvotes={100} downvotes={-80} link={"https://khanacademy.org"} title={"Wektory i iteratory"} description={"Bardzo fajna strona"} nComments={30}          />
-      <LinkBox upvotes={120} downvotes={-10} link={"https://agh.edu.pl"}      title={"Teoria praktyczna"} description={"Bardzo fajna strona"} nComments={54}     />
-      <LinkBox upvotes={55} downvotes={-90} link={"https://coursera.com"}     title={"Kurs para jazdy"} description={"Bardzo fajna strona"} nComments={23}     />
-      <LinkBox upvotes={152} downvotes={-20} link={"https://udemy.com"}       title={"C++"} description={"Bardzo fajna strona"} nComments={13}   />
-      <LinkBox upvotes={212} downvotes={-10} link={"https://youtube.com"}     title={"C--"} description={"Bardzo fajna strona"} nComments={14}     />
+      {items.map((item, index) =>
+      {
+          return <LinkBox {...item}></LinkBox>
+      })}
       <Switch>
         <Route to="/" component={Feed} />
       </Switch>
