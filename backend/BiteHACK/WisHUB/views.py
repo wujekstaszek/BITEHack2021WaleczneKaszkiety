@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -54,38 +54,51 @@ def field(request,field_id):
 	data = data.serialize
 	return Response(data)
 
-@api_view(['GET','POST'])
-def post(request,post_id):
-	if request.method == 'GET':
-		respond = {}
-		data = Post.nodes.all(post_id = post_id)
-		data = data.serialize
-		return Response(data)
-	if request.method == 'POST':
-		pass
-
-
-
-
-
-
 @api_view(['GET'])
-def login_data(request):
-	user =  BaseBackend.get_user(request)
+def post(request):
+	respond = {}
+	data = Post.nodes.all(post_id = post_id)
+	data = data.serialize
+	return Response(data)
 
-@api_view(['POST'])
-def login(request):
-	data = json.loads(request.body)
-	username = data["username"]
-	password = data["password"]
-	print(request.body)
-	user = authenticate(username=username,password=password)
-	if user is None:
-		response = False
-	else:
-		response = True
-	return Response(response)
-	
+class add_post(APIView):
+	permission_classes = (IsAuthenticated,)
+	@api_view(['POST'])
+	def get(self,request):
+		data = json.load(request.body)
+		text = data["text"]
+		link = data["link"]
+		tags = data["tags"]
+		try:
+			post = Post(text=text,link=link)
+			post.save()
+			post.user.connect(BaseBackend.get_user(request))
+			for tag in tags:
+				if tag["name"] in Tag.nodes.all(field=tag["field"]):
+					post.tags.connect(Tag.nodes.get(name=tag["name"]))
+				else:
+					t = Tag(name=tag["name"])
+					t.save() 
+					t.field.connect(Field.nodes.get(name=tag["field"]))
+					post.tags.connect(t)
+			response = True
+		except Exception as e:
+			response = False
+		return Response(response)
+
+
+
+
+class login_data(APIView):
+	permission_classes = (IsAuthenticated,)
+	@api_view(['GET'])
+	def get(self,request):
+		user =  request.user
+		context = {
+		"name":user.name,
+		"email":user.email
+		}
+		return Response(context)
 
 
 
