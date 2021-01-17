@@ -5,6 +5,7 @@ import Topbar from './components/Topbar';
 import Navbar from './components/Navbar';
 import Feed from './pages/Feed';
 import './App.scss';
+import Login from './components/Login';
 
 const App = ({ routes }) => {
   return (
@@ -16,6 +17,7 @@ const App = ({ routes }) => {
           routes.map((route) => (
             <Route exact path={`/${route.toLowerCase()}`} component={Feed} />
           ))}
+        <Route exact path="/signin" component={Login} />
       </Switch>
     </div>
   );

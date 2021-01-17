@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,13 +12,16 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginUser as logHim } from '../../store/actions/auth';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-      WiseHub
+        WiseHub
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -46,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+const SignIn = ({ history, loginUser }) => {
+  const loginRef = useRef();
   const classes = useStyles();
 
   return (
@@ -59,7 +63,15 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            loginUser(loginRef.current.value).then(() =>
+              setTimeout(() => history.push('/'), 500)
+            );
+          }}
+          className={classes.form}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +82,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            inputRef={loginRef}
           />
           <TextField
             variant="outlined"
@@ -114,4 +127,10 @@ export default function SignIn() {
       </Box>
     </Container>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (username) => dispatch(logHim(username)),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(SignIn));

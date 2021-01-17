@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 import logo from '../../icons/logo.png';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../store/actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -21,9 +23,24 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color: theme.palette.navbar,
   },
+  userSection: {
+    margin: '0 50px',
+    width: '100%',
+  },
+  loginButton: {
+    fontSize: '18px',
+  },
+  iconWrapper: {
+    position: 'absolute',
+    top: '15px',
+    right: '30px',
+  },
+  user: {
+    marginRight: '20px',
+  },
 }));
 
-const Topbar = (props) => {
+const Topbar = ({ username, logoutUser }) => {
   const classes = useStyles();
 
   return (
@@ -37,17 +54,46 @@ const Topbar = (props) => {
         {/* <Fab> */}
         {/* <div> */}
 
-        <div>
-          Guest
-          <AccountCircleIcon></AccountCircleIcon>
-         </div>
-         {/* </Fab> */}
-         
-        <Button href="/signin" color="secondary">Login</Button>
+        <Grid direction="column" className={classes.userSection}>
+          <div>
+            <Typography variant="body4" className={classes.user}>
+              {username ? `Hello, ${username}!` : 'Guest'}
+            </Typography>
+            <div className={classes.iconWrapper}>
+              <AccountCircleIcon></AccountCircleIcon>
+            </div>
+          </div>
+          {/* </Fab> */}
+          {username ? (
+            <Button
+              className={classes.loginButton}
+              onClick={() => logoutUser()}
+              color="secondary"
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              className={classes.loginButton}
+              href="/signin"
+              color="secondary"
+            >
+              Login
+            </Button>
+          )}
+        </Grid>
         {/* </div> */}
       </Typography>
     </Grid>
   );
 };
 
-export default Topbar;
+const mapStateToProps = (state) => ({
+  username: state.auth.username,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logoutUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topbar);
