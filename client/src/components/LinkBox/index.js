@@ -33,25 +33,23 @@ const useStyles = makeStyles((theme) => ({
 
 const LinkBox = (props) => {
   let {
-    text = 'asdasasd',
-    link = 'asdasdd',
-    upvotes = 12,
-    downvotes = 1,
-    nComments = 'asdasds',
+    text = '',
+    link = '',
+    upvoted = 12,
+    downvoted = 1,
+    comments = '',
   } = props.post;
-  const [upCount, setUpCount] = useState(upvotes);
+  const [upCount, setUpCount] = useState(upvoted);
   const incrementCount = () => {
     setUpCount(+upCount + 1);
   };
 
-  const [downCount, setDownCount] = useState(downvotes);
+  const [downCount, setDownCount] = useState(downvoted);
   const decrementCount = () => {
     setDownCount(+downCount - 1);
   };
 
   const classes = useStyles();
-  let url = link.split('#').pop().split('?').pop();
-  let page = url.substring(url.lastIndexOf('/') + 1);
 
   return (
     <div className={classes.root}>
@@ -68,7 +66,7 @@ const LinkBox = (props) => {
             </Fab>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {page}
+            {link}
           </Typography>
         </CardContent>
         <Button onClick={incrementCount}>
@@ -80,7 +78,7 @@ const LinkBox = (props) => {
         </Button>
         <Button>
           <ChatBubbleOutlineIcon className={classes.extendedIcon} />
-          {nComments}
+          {comments.length}
         </Button>
       </Card>
     </div>
