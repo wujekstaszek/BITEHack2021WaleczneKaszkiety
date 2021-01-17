@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Button, Box } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import Link from "@material-ui/core/Link";
+import Fab from "@material-ui/core/Fab";
 import CardContent from "@material-ui/core/CardContent";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -49,12 +49,9 @@ const LinkBox = (props) =>
       <Card>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            <a target="_blank"
-              href={link}
-              className={classes.link}
-            >
+            <Fab variant="extended" target={ "_blank"} href={link} className={classes.link}>
               {title}
-            </a>
+            </Fab>
           </Typography>
           <Typography variant="body4" color="textSecondary" component="p">
            {page} 
@@ -63,7 +60,6 @@ const LinkBox = (props) =>
            {description} 
           </Typography>
         </CardContent>
-        {/* <Fab variant="extended"> */}
         <Button onClick={incrementCount}>
           <NavigationIcon className={classes.extendedIcon} />
         +{upCount}
