@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles, Grid } from '@material-ui/core';
 import Navitem from '../Navitem';
 import Collapse from '@kunukn/react-collapse';
 import CollapseSection from '../CollapseSection';
 import { withRouter } from 'react-router-dom';
-
-import { domains } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
   nav: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ collapseDuration = '300ms', history, ...props }) => {
+const Navbar = ({ fields, collapseDuration = '300ms', history, ...props }) => {
   const [collapseContent, setCollapseContent] = useState('');
   const classes = useStyles();
 
@@ -34,25 +33,29 @@ const Navbar = ({ collapseDuration = '300ms', history, ...props }) => {
         justify="space-around"
         alignContent="center"
       >
-        {Object.values(domains).map((domain, i) => (
-          <Navitem
-            onClick={() => history.push(`${domain.title.toLowerCase()}/asdasd`)}
-            key={i}
-            onMouseOver={() => setCollapseContent(domain.title)}
-            title={domain.title}
-          />
-        ))}
+        {fields &&
+          fields.map(({ fieldId, name }) => (
+            <Navitem
+              key={fieldId}
+              onMouseOver={(e) => setCollapseContent(name)}
+              title={name}
+            />
+          ))}
       </Grid>
       <Collapse
         transition={`height ${collapseDuration} cubic-bezier(.4, 0, .2, 1)`}
         isOpen={collapseContent.length !== 0}
       >
         {collapseContent.length !== 0 && (
-          <CollapseSection title={collapseContent} domains={domains} />
+          <CollapseSection title={collapseContent} fields={fields} />
         )}
       </Collapse>
     </nav>
   );
 };
 
-export default withRouter(Navbar);
+const mapStateToProps = (state) => ({
+  fields: state.fields.fields,
+});
+
+export default withRouter(connect(mapStateToProps)(Navbar));
