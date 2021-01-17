@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from .models import User
 from .models import Tag,Field
 import json
+from django.contrib.auth.backends import BaseBackend
 
 @api_view(['GET'])
 def tags(request):
@@ -61,12 +62,13 @@ def post(request,post_id):
 		data = data.serialize
 		return Response(data)
 	if request.method == 'POST':
-		
+		pass
 
 
 
 
-from django.contrib.auth.backends import BaseBackend
+
+
 @api_view(['GET'])
 def login_data(request):
 	user =  BaseBackend.get_user(request)

@@ -4,3 +4,5 @@ graphene-django
 psycopg2
 django-neomodel
 neomodel
+djangorestframework_simplejwt
+django-cors-headers
