@@ -10,12 +10,13 @@ import { fetchFeed as getFeed } from '../../store/actions/feed';
 
 const useStyles = makeStyles((theme) => ({
   nav: {
-    boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.75)',
-    backgroundColor: theme.palette.navbar,
-  },
-  wrapper: {
     position: 'absolute',
     top: `${theme.topBarHeight}px`,
+    boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.75)',
+    backgroundColor: theme.palette.navbar,
+    zIndex: theme.zIndex.appBar,
+  },
+  wrapper: {
     width: '100vw',
     height: `${theme.navbarHeight}px`,
     backgroundColor: theme.palette.navbar,
