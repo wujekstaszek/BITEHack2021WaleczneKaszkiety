@@ -2,6 +2,7 @@ import "./App.scss";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LinkBox from "./components/Linkbox";
+import SignIn from "./components/Login"
 import Topbar from './components/Topbar';
 import Feed from './pages/Feed';
 
@@ -46,10 +47,11 @@ function App() {
       <Topbar />
       <Navbar />
       <Switch></Switch>
-      {items.map((item, index) =>
-      {
-          return <LinkBox {...item}></LinkBox>
-      })}
+      <SignIn></SignIn>
+      {/* {items.map(record => */}
+      {/* { */}
+          {/* return <LinkBox {...record}></LinkBox> */}
+      {/* })} */}
       <Switch>
         <Route to="/" component={Feed} />
       </Switch>
