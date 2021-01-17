@@ -34,6 +34,7 @@ class User(DjangoNode):
     #those 4 functions below should be replaced with 1 - update_resource(value, resource)
     #It would be probably much more concise - but this can be rewritten later
     def upvote_post(self, post_id):
+        rel = 0
         try: #validating if the post exists at all
             post = Post.nodes.get(post_id=post_id)
             print(post)
@@ -41,15 +42,13 @@ class User(DjangoNode):
             print("Ziomek, nie ma takiego postu!")
             print(e)
             return
-        try: #checking if the relation already exists
+        #checking if the relation already exists
+        rel = post.votes.relationship(self)
+        if rel == None:
+            post.votes.connect(self) #if there no relation between this user and post - make it!
             rel = post.votes.relationship(self)
-        except Exception as e: #if there no relation between this user and post - make it!
-            post.votes.connect(self)
-            rel = post.votes.relationship(self)
-        #if there is such relation - rel must be set as that relation
 
         if(rel.value == -1): #This guy already downvoted!
-            print(-1)
             rel.value = +1
             post.downvoted -= 1
             post.upvoted += 1
@@ -71,10 +70,9 @@ class User(DjangoNode):
         except Exception as e: #no such post
             print(e)
             return
-        try:
-            rel = post.votes.relationship(self)
-        except Exception as e: #if there no relation between this user and post - make it!
-            post.votes.connect(self)
+        rel = post.votes.relationship(self)
+        if rel == None:
+            post.votes.connect(self) #if there no relation between this user and post - make it!
             rel = post.votes.relationship(self)
 
         if(rel.value == -1): #This guy already downvoted!
@@ -97,9 +95,8 @@ class User(DjangoNode):
         except Exception as e: #no such comment
             print(e)
             return
-        try:
-            rel = comment.votes.relationship(self)
-        except Exception as e: #if there no relation between this user and post - make it!
+        rel = comment.votes.relationship(self)
+        if rel == None: #if there no relation between this user and comment - make it!
             comment.votes.connect(self)
             rel = comment.votes.relationship(self)
 
@@ -117,15 +114,14 @@ class User(DjangoNode):
         comment.save()
         self.save()
 
-    def upvote_comment(self):
+    def upvote_comment(self, comment_id):
         try:
             comment = Comment.nodes.get(comment_id=comment_id)
         except Exception as e: #no such comment
             print(e)
             return
-        try:
-            rel = comment.votes.relationship(self)
-        except Exception as e: #if there no relation between this user and post - make it!
+        rel = comment.votes.relationship(self)
+        if rel == None: #if there no relation between this user and post - make it!
             comment.votes.connect(self)
             rel = comment.votes.relationship(self)
 
