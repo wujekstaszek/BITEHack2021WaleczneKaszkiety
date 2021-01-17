@@ -7,6 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import CardContent from '@material-ui/core/CardContent';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import MetaTags from 'react-meta-tags';
 
 const { useState } = React;
 
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
     minWidth: '900px',
+    position: 'relative',
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -28,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
 
   link: {
     color: theme.inherit,
+  },
+  username: {
+    position: 'absolute',
+    top: '10px',
+    right: '40px',
+    color: theme.palette.main,
+    textTransform: 'uppercase',
   },
 }));
 
@@ -80,6 +89,9 @@ const LinkBox = (props) => {
           <ChatBubbleOutlineIcon className={classes.extendedIcon} />
           {comments.length}
         </Button>
+        <Typography classname={classes.username} variant="h6">
+          {}
+        </Typography>
       </Card>
     </div>
   );
