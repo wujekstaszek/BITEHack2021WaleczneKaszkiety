@@ -7,7 +7,7 @@ import datetime
 class User(DjangoNode):
     user_id = UniqueIdProperty()
     name = StringProperty(required=True)
-    email = StringProperty(required=True)
+    email = StringProperty(required=True, UniqueIdProperty=True)
     posts = RelationshipTo("Post", "POSTED", cardinality=ZeroOrMore)
     comments = RelationshipTo("Comment", "COMMENTED", cardinality=ZeroOrMore)
 
@@ -72,7 +72,7 @@ class Comment(DjangoNode):
 
 class Tag(DjangoNode):
     tag_id = UniqueIdProperty()
-    name = StringProperty(required=True)
+    name = StringProperty(required=True, UniqueIdProperty=True)
     posts = RelationshipFrom("Post", "TAGGED", cardinality=ZeroOrMore)
     fields = RelationshipTo("Field", "FROM", cardinality=OneOrMore)
 
@@ -88,7 +88,7 @@ class Tag(DjangoNode):
 
 class Field(DjangoNode):
     field_id = UniqueIdProperty()
-    name = StringProperty(required=True)
+    name = StringProperty(required=True, UniqueIdProperty=True)
     tags = RelationshipFrom("Tag", "FROM", cardinality=ZeroOrMore)
 
     @property
@@ -96,7 +96,7 @@ class Field(DjangoNode):
         return {
                 'field_id': self.field_id,
                 'name': self.name,
-                'tags':[x.tag_id for x in self.tags.all()],
+                'tags':[{"tag_id":x.tag_id,"name":x.name} for x in self.tags.all()],
         }
 
 # Create your models here.
