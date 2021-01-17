@@ -96,7 +96,7 @@ class Field(DjangoNode):
         return {
                 'field_id': self.field_id,
                 'name': self.name,
-                'tags':[x.tag_id for x in self.tags.all()],
+                'tags':[{"tag_id":x.tag_id,"name":x.name} for x in self.tags.all()],
         }
 
 # Create your models here.
