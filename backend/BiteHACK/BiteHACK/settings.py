@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'WisHUB.apps.WishubConfig'
 ]
-
+from WisHUB.middleware import * 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'WisHUB.middleware.CustomCorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
