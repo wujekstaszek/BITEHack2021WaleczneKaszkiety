@@ -49,11 +49,10 @@ const App = ({ routes }) => {
       <Topbar />
       <Navbar />
       <Switch></Switch>
-      <SignIn></SignIn>
-      {/* {items.map(record => */}
-      {/* { */}
-          {/* return <LinkBox {...record}></LinkBox> */}
-      {/* })} */}
+      {/* <SignIn></SignIn> */}
+          {items.map(record => {
+              return <LinkBox {...record}></LinkBox>
+          })}
       <Switch>
         {routes &&
           routes.map((route) => (
