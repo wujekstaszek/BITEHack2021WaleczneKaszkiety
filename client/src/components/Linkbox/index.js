@@ -8,6 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
+const { useState } = React;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -28,12 +30,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const LinkBox = (props) =>
 {
+    let {title, description, link, upvotes, downvotes, nComments} = props;
+    const [upCount, setUpCount] = useState(upvotes);
+    const incrementCount = () => { setUpCount(upCount + 1); }
+
+    const [downCount, setDownCount] = useState(downvotes);
+    const decrementCount = () => { setDownCount(downCount - 1); }
+
     const classes = useStyles();
-    let { link, upvotes, downvotes, nComments} = props;
-    const preventDefault = (event) => event.preventDefault();
-    link = "https://" + link
+    let url = link.split('#').pop().split('?').pop();
+    let page = url.substring(url.lastIndexOf('/') + 1);
 
     return (
       <div className={classes.root}>
@@ -44,21 +53,24 @@ const LinkBox = (props) =>
               href={link}
               className={classes.link}
             >
-              {link}
+              {title}
             </a>
           </Typography>
+          <Typography variant="body4" color="textSecondary" component="p">
+           {page} 
+          </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Bardzo fajna strona.
+           {description} 
           </Typography>
         </CardContent>
         {/* <Fab variant="extended"> */}
-        <Button>
+        <Button onClick={incrementCount}>
           <NavigationIcon className={classes.extendedIcon} />
-        +{upvotes}
+        +{upCount}
         </Button>
-        <Button>
+        <Button onClick={decrementCount}>
           <NavigationIcon className={classes.transformation} />
-        -{downvotes}
+        {downCount}
         </Button>
         <Button>
          <ChatBubbleOutlineIcon className={classes.extendedIcon} />
