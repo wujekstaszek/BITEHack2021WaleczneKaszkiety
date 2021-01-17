@@ -8,7 +8,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_FIELDS:
-      console.log(action.payload);
       const translatedResponse = action.payload
         ? action.payload.reduce(
             (acc, curr) => [...acc, { ...translateParams(curr) }],

@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CollapseSection = ({ title, fields }) => {
+const CollapseSection = ({ domain, fields, handleClick }) => {
   const classes = useStyles();
-  const options = fields.find(({ name }) => name === title).tags;
+  const options = fields.find(({ name }) => name === domain).tags;
 
   return (
     <Grid
@@ -27,7 +27,12 @@ const CollapseSection = ({ title, fields }) => {
       alignItems="flex-start"
     >
       {options.map(({ tag_id, name }) => (
-        <Typography className={classes.navOption} variant="h5" key={tag_id}>
+        <Typography
+          className={classes.navOption}
+          variant="h5"
+          key={tag_id}
+          onClick={() => handleClick(tag_id, domain)}
+        >
           {name}
         </Typography>
       ))}

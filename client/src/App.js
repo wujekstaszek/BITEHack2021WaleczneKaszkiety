@@ -14,9 +14,8 @@ const App = ({ routes }) => {
       <Switch>
         {routes &&
           routes.map((route) => (
-            <Route to={`/${route.toLowerCase()}`} component={Feed} />
+            <Route exact path={`/${route.toLowerCase()}`} component={Feed} />
           ))}
-        <Route to="/" component={Feed} />
       </Switch>
     </div>
   );

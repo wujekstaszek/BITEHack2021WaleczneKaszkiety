@@ -6,6 +6,8 @@ import Collapse from '@kunukn/react-collapse';
 import CollapseSection from '../CollapseSection';
 import { withRouter } from 'react-router-dom';
 
+import { fetchFeed as getFeed } from '../../store/actions/feed';
+
 const useStyles = makeStyles((theme) => ({
   nav: {
     boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.75)',
@@ -20,9 +22,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ fields, collapseDuration = '300ms', history, ...props }) => {
+const Navbar = ({
+  fields,
+  collapseDuration = '300ms',
+  history,
+  fetchFeed,
+  ...props
+}) => {
   const [collapseContent, setCollapseContent] = useState('');
   const classes = useStyles();
+
+  // dont do that, worst navigation ever, shit happens
+  const handleNavitemClick = (tagId, domainBase) => {
+    const url = domainBase.toLowerCase();
+    history.push(url);
+    fetchFeed(tagId);
+  };
 
   return (
     <nav className={classes.nav} onMouseLeave={() => setCollapseContent('')}>
@@ -36,6 +51,7 @@ const Navbar = ({ fields, collapseDuration = '300ms', history, ...props }) => {
         {fields &&
           fields.map(({ fieldId, name }) => (
             <Navitem
+              onClick={() => handleNavitemClick(fieldId, name)}
               key={fieldId}
               onMouseOver={(e) => setCollapseContent(name)}
               title={name}
@@ -47,7 +63,11 @@ const Navbar = ({ fields, collapseDuration = '300ms', history, ...props }) => {
         isOpen={collapseContent.length !== 0}
       >
         {collapseContent.length !== 0 && (
-          <CollapseSection title={collapseContent} fields={fields} />
+          <CollapseSection
+            handleClick={handleNavitemClick}
+            domain={collapseContent}
+            fields={fields}
+          />
         )}
       </Collapse>
     </nav>
@@ -58,4 +78,8 @@ const mapStateToProps = (state) => ({
   fields: state.fields.fields,
 });
 
-export default withRouter(connect(mapStateToProps)(Navbar));
+const mapDispatchToProps = (dispatch) => ({
+  fetchFeed: (tagId) => dispatch(getFeed(tagId)),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
