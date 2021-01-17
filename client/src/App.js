@@ -12,13 +12,13 @@ const items = [
 {
     title: "Wektory i iteratory",
     description: "Bardzo fajna strona",
-    link : "https://coursera.org",
+    link : "https://khanacademy.org",
     upvotes : 322,
     downvotes : -22,
     nComments : 11
 },
 {
-    title : "Template metaprogramming",
+    title : "Wektory i iteratory za darmo",
     description : "Bardzo fajna strona",
     link : "https://coursera.com",
     upvotes : 350,
@@ -26,7 +26,7 @@ const items = [
     nComments : 10
 },
 {
-    title : "C++",
+    title : "Wektory i iteratory udemy przecena z 999999 na 33 zł",
     description : "Bardzo fajna strona",
     link : "https://udemy.com",
     upvotes : 122,
@@ -34,7 +34,7 @@ const items = [
     nComments : 13
 },
 {
-    title : "C--",
+    title : "Wektory yt",
     description : "Bardzo fajna strona",
     link : "https://youtube.com",
     upvotes : 212,
