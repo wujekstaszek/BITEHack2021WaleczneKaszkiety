@@ -1,21 +1,27 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import store from "../../store";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import withTheme from "../../hoc/withTheme";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import withTheme from '../../hoc/withTheme';
 
-const AppProvider = ({ children }) => {
+import { fetchFields as getFields } from '../../store/actions/fields';
+
+const AppProvider = ({ fetchPosts, children }) => {
+  useEffect(() => {
+    fetchPosts();
+  }, []);
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <>
-          <CssBaseline />
-          {children}
-        </>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <>
+        <CssBaseline />
+        {children}
+      </>
+    </BrowserRouter>
   );
 };
 
-export default withTheme(AppProvider);
+const mapDispatchToProps = (dispatch) => ({
+  fetchPosts: () => dispatch(getFields()),
+});
+
+export default withTheme(connect(null, mapDispatchToProps)(AppProvider));
