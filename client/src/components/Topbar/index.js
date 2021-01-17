@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   logo: {
-    width: '300px',
+    width: '400px',
     height: '100%',
     background: `url(${logo}) no-repeat`,
     backgroundSize: '100%',

@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Feed = ({ posts }) => {
   const classes = useStyles();
+
+  const sortedPosts = posts.sort((a, b) => b.upvoted - a.upvoted);
   return (
     <Grid
       container
@@ -20,8 +22,8 @@ const Feed = ({ posts }) => {
       direction="column"
       className={classes.main}
     >
-      {posts &&
-        posts.map((post, i) => <LinkBox key={post.post_id} post={post} />)}
+      {sortedPosts &&
+        sortedPosts.map((post) => <LinkBox key={post.post_id} post={post} />)}
     </Grid>
   );
 };
