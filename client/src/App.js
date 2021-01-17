@@ -1,8 +1,8 @@
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Topbar from './components/Topbar';
-import Navbar from './components/Navbar';
 import Feed from './pages/Feed';
 import './App.scss';
 import Login from './components/Login';
@@ -12,13 +12,16 @@ const App = ({ routes }) => {
     <div className="App">
       <Topbar />
       <Navbar />
-      <Switch>
-        {routes &&
-          routes.map((route) => (
-            <Route exact path={`/${route.toLowerCase()}`} component={Feed} />
-          ))}
-        <Route exact path="/signin" component={Login} />
-      </Switch>
+      <Switch></Switch>
+      <BrowserRouter>
+        <Switch>
+          {routes &&
+            routes.map((route) => (
+              <Route exact path={`/${route.toLowerCase()}`} component={Feed} />
+            ))}
+          <Route exact path="/signin" component={Login} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 };
