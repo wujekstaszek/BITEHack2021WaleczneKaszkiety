@@ -89,7 +89,7 @@ def seed_database():
     post_list.append(Post(link="https://www.tutorialspoint.com/django/index.htm",
     text="This one is quite good and exhaustive :)",
     ))
-
+    post_list.append(Post(text= "Pretty neat source of knowledge",link="https://realpython.com/tutorials/django/"))
     for post in post_list:
         post.save()
         post.tags.connect(Tag.nodes.get(name="Django"))
@@ -101,11 +101,28 @@ def seed_database():
     post_list.append(Post(link="https://en.wikipedia.org/wiki/Django_(web_framework)",
     text="Classic of studying :P"
     ))
+    post_list.append(Post(link="https://docs.djangoproject.com/en/3.1/", text="Official django documentation, perfect for beginners"))
 
     for post in post_list:
         post.save()
         post.tags.connect(Tag.nodes.get(name="Django"))
         post.user.connect(User.nodes.get(name="Maciej Podbioł"))
+    post_list.clear()
+
+
+
+
+    post_list = list()
+    post_list.append(Post(link="https://en.wikipedia.org/wiki/Binary_search_algorithm",
+    text="Binnary search for dummies"
+    ))
+    post_list.append(Post(link="https://www.geeksforgeeks.org/binary-search/", text="GfG doing theirs job!"))
+    post_list.append(Post(link="https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search", text="Walczene's Kaszkiety favorite tutorial!"))
+
+    for post in post_list:
+        post.save()
+        post.tags.connect(Tag.nodes.get(name="Binary search"))
+        post.user.connect(User.nodes.get(name="Mariusz Pudzianowski"))
     post_list.clear()
 
     #Comments

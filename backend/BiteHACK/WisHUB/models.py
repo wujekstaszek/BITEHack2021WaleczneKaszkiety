@@ -162,7 +162,7 @@ class Post(DjangoNode):
                 'upvoted': self.upvoted,
                 'downvoted': self.downvoted,
                 'tags': [x.tag_id for x in self.tags.all()],
-                'user' : [x.user_id for x in self.user.all() ],
+                'user' : [x.name for x in self.user.all()],
                 'comments': [x.comment_id for x in self.comments.all()],
         }
 
