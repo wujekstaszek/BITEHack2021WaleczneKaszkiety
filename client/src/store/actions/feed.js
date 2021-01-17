@@ -7,15 +7,14 @@ export const setFeed = (data) => ({
 });
 
 export const fetchFeed = (tagId) => (dispatch) => {
-  console.log(tagId);
   return axios
-    .get(`/posts/${tagId}`, {
+    .get(`/posts/${tagId}/`, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
     })
     .then((res) => {
-      console.log(res);
+      dispatch(setFeed(res.data));
     })
     .catch((err) => console.warn(err));
 };

@@ -13,7 +13,7 @@ const { useState } = React;
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(2),
     },
     minWidth: '900px',
   },
@@ -33,13 +33,12 @@ const useStyles = makeStyles((theme) => ({
 
 const LinkBox = (props) => {
   let {
-    title = 'asdasasd',
-    description = 'asdasdasd',
+    text = 'asdasasd',
     link = 'asdasdd',
     upvotes = 12,
     downvotes = 1,
     nComments = 'asdasds',
-  } = props;
+  } = props.post;
   const [upCount, setUpCount] = useState(upvotes);
   const incrementCount = () => {
     setUpCount(+upCount + 1);
@@ -65,14 +64,11 @@ const LinkBox = (props) => {
               href={link}
               className={classes.link}
             >
-              {title}
+              {text}
             </Fab>
           </Typography>
-          <Typography variant="body4" color="textSecondary" component="p">
-            {page}
-          </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {description}
+            {page}
           </Typography>
         </CardContent>
         <Button onClick={incrementCount}>
