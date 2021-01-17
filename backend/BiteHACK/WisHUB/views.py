@@ -32,7 +32,7 @@ def fields(request):
 @api_view(['GET'])
 def posts(request,tag_id):
 	respond = {}
-	data = Tag.nodes.all(tag_id = tag_id)
+	data = Tag.nodes.filter(tag_id = tag_id)
 	data = data.posts.all()
 	data = [x.serialize for x in data]
 	return Response(data)
