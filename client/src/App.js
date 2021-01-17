@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LinkBox from "./components/Linkbox";
 import SignIn from "./components/Login"
@@ -49,16 +49,22 @@ const App = ({ routes }) => {
       <Topbar />
       <Navbar />
       <Switch></Switch>
-      {/* <SignIn></SignIn> */}
+          <BrowserRouter>
+      <Switch>
+              <Route path="/">
           {items.map(record => {
               return <LinkBox {...record}></LinkBox>
-          })}
-      <Switch>
+            })}
+                </Route> 
         {routes &&
           routes.map((route) => (
-            <Route exact path={`/${route.toLowerCase()}`} component={Feed} />
-          ))}
+              <Route exact path={`/${route.toLowerCase()}`} component={Feed} />
+              ))}
+         <Route path="/signin">
+            <SignIn/>
+          </Route>
       </Switch>
+              </BrowserRouter>
     </div>
   );
 };
