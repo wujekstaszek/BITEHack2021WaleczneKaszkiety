@@ -26,6 +26,7 @@ SECRET_KEY = '*2em(q770m1!*!vtqej+pef4nmtdta31wgaw*zii*d0x7x$8dy'
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+import os
 
 
 # Application definition
@@ -84,10 +85,10 @@ WSGI_APPLICATION = 'BiteHACK.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
     }
 }
-import os
+
 import neomodel
 NEO4j_user = "app2"
 NEO4j_pass= "6YZnRMQCrA7DDhcQvsjywRXgatUmXS8n6YU76P2RR33wRPW2b4HfWR94xAsuccSSTwxyGsS5fxKmTLsMHDBbh6"

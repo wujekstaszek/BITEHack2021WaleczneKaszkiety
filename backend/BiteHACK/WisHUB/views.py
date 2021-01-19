@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate
 from .models import User
 from .models import Tag,Field
 import json
-from django.contrib.auth.backends import BaseBackend
 
 @api_view(['GET'])
 def tags(request):
@@ -72,13 +71,12 @@ class add_post(APIView):
 		try:
 			post = Post(text=text,link=link)
 			post.save()
-			post.user.connect(BaseBackend.get_user(request))
 			for tag in tags:
 				if tag["name"] in Tag.nodes.all(field=tag["field"]):
 					post.tags.connect(Tag.nodes.get(name=tag["name"]))
 				else:
 					t = Tag(name=tag["name"])
-					t.save() 
+					t.save()
 					t.field.connect(Field.nodes.get(name=tag["field"]))
 					post.tags.connect(t)
 			response = True
@@ -113,7 +111,7 @@ def register(request):
 		u.save()
 		u = User(name=username,email=email)
 		u.save()
-		response = True 		
+		response = True
 	except Exception as e:
 		raise e
 		response = False

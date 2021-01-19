@@ -1,22 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
+import { Button, Box } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Fab from '@material-ui/core/Fab';
 import CardContent from '@material-ui/core/CardContent';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import MetaTags from 'react-meta-tags';
 
 const { useState } = React;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(2),
+      margin: theme.spacing(1),
     },
-    minWidth: '900px',
     position: 'relative',
   },
   extendedIcon: {
@@ -27,35 +25,29 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     transform: 'rotate(180deg)',
   },
-
   link: {
     color: theme.inherit,
   },
   username: {
     position: 'absolute',
-    top: '10px',
-    right: '40px',
+    top: '20px',
+    right: '30px',
     color: theme.palette.main,
     textTransform: 'uppercase',
+    maxWidth: '300px',
   },
 }));
 
 const LinkBox = (props) => {
-  let {
-    text = '',
-    link = '',
-    upvoted = 12,
-    downvoted = 1,
-    comments = '',
-  } = props.post;
+  let { text, link, upvoted, downvoted, comments, user } = props.post;
   const [upCount, setUpCount] = useState(upvoted);
   const incrementCount = () => {
-    setUpCount(+upCount + 1);
+    setUpCount(upCount + 1);
   };
 
   const [downCount, setDownCount] = useState(downvoted);
   const decrementCount = () => {
-    setDownCount(+downCount - 1);
+    setDownCount(downCount - 1);
   };
 
   const classes = useStyles();
@@ -89,8 +81,8 @@ const LinkBox = (props) => {
           <ChatBubbleOutlineIcon className={classes.extendedIcon} />
           {comments.length}
         </Button>
-        <Typography classname={classes.username} variant="h6">
-          {}
+        <Typography className={classes.username} variant="h6">
+          {user[0]}
         </Typography>
       </Card>
     </div>

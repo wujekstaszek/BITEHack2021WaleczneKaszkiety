@@ -7,6 +7,7 @@ import { logoutUser } from '../../store/actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
+    overflow: 'hidden',
     position: 'absolute',
     top: 0,
     width: '100vw',
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.navbar,
   },
   userSection: {
+    overflow: 'hidden',
     margin: '0 50px',
     width: '100%',
   },
@@ -31,11 +33,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
   },
   iconWrapper: {
+    overflow: 'hidden',
     position: 'absolute',
     top: '15px',
     right: '30px',
   },
   user: {
+    overflow: 'hidden',
     marginRight: '20px',
   },
 }));
