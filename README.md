@@ -1,6 +1,7 @@
 # BITEHack2021
 # by WaleczneKaszkiety
 
+![Prezentation.gif](https://github.com/wujekstaszek/BITEHack2021WaleczneKaszkiety/blob/main/pres.gif?raw=true)
 
 #### [Tymoteusz Ciesielski  - Django (data models and UI)](https://github.com/Tymotheus)
 #### [Aleksander Morgała - Backend (Django + Django Rest)](https://github.com/wujekstaszek)
